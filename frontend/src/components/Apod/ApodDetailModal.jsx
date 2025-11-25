@@ -18,6 +18,7 @@ function ApodDetailModal({ apod, onClose }) {
               title={apod.title}
               className="modal-media"
               frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
             />
           )}

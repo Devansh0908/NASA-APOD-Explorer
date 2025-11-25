@@ -1,0 +1,16 @@
+{
+  "name": "nasa-apod-fastapi",
+  "version": "4.0.0",
+  "description": "FastAPI backend for NASA APOD Explorer",
+  "main": "src/main.py",
+  "scripts": {
+    "dev": "python run.py",
+    "start": "uvicorn src.main:app --host 0.0.0.0 --port 5000"
+  },
+  "keywords": ["nasa", "apod", "api", "fastapi", "python"],
+  "author": "Devansh0908",
+  "license": "MIT",
+  "engines": {
+    "python": ">=3.11.0"
+  }
+}

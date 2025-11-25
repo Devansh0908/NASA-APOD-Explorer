@@ -1,0 +1,262 @@
+You are GitHub Copilot working inside my editor. Your ONLY job is to create and edit files in this repository to fully implement a complete project called **"NASA APOD Explorer"** as specified below. 
+
+IMPORTANT BEHAVIOR RULES (FOLLOW STRICTLY):
+- Do NOT ask me questions.
+- Do NOT tell me to manually create any files, folders, or commands. YOU must create and edit ALL files and folders yourself.
+- Do NOT generate pseudo-code or high-level suggestions. Write real, runnable code.
+- Stay within the scope of this prompt. Do NOT add extra features beyond what is described.
+- At the end, output ONLY:
+  1) A concise bullet list of what you created/modified (file paths).
+  2) Exact commands to run the backend and frontend locally.
+- No long explanations, no extra commentary.
+
+====================================
+PROJECT OVERVIEW
+====================================
+Build a full-stack, locally-runnable **NASA APOD Explorer** that consumes the NASA Astronomy Picture of the Day API via a custom backend web service.
+
+The project MUST contain:
+- A **backend web service API** (Node.js + Express).
+- A **frontend UI** (React + modern tooling such as Vite or Create React App).
+- Backend handles all communication with NASA APOD API.
+- Frontend **never** calls NASA API directly, only the local backend.
+- Clean project structure, extensible architecture, and strong code quality.
+
+NASA APOD INFO:
+- Base NASA API URL: https://api.nasa.gov/
+- APOD endpoint: https://api.nasa.gov/planetary/apod
+- Use secure API key handling.
+- My NASA APOD API key (store in .env, do NOT hardcode into source files):
+  NASA_API_KEY=fe3Eo5zai2xMYw9yQsnEuUvPJTcuviQogZ4J5RQP
+
+====================================
+ROOT PROJECT STRUCTURE
+====================================
+Create a root folder structure (you create all of this):
+
+- package.json (for root tooling if needed OR just separate for backend/frontend, your choice, but it must be sensible)
+- .gitignore
+- README.md
+- backend/
+  - package.json
+  - src/
+  - tsconfig.json (only if you choose TypeScript; JS is also acceptable)
+- frontend/
+  - package.json
+  - src/
+  - tooling files depending on chosen framework (Vite or CRA, etc.)
+
+You decide whether backend & frontend each have their own package.json (recommended). In all cases, the project must be easy to run with clear npm scripts.
+
+====================================
+BACKEND REQUIREMENTS (Node.js + Express)
+====================================
+Tech:
+- Node.js + Express.
+- You may use TypeScript OR JavaScript. Either is fine, but must be consistent and properly configured.
+- Use `axios` (or a similar HTTP client) to call NASA.
+- Implement CORS to allow the frontend origin (localhost) to access the backend.
+
+Environment & Security:
+- Use a `.env` file in the backend folder with:
+  NASA_API_KEY=fe3Eo5zai2xMYw9yQsnEuUvPJTcuviQogZ4J5RQP
+- Ensure `.env` is **ignored by git** via `.gitignore`.
+- Load env vars using a library like `dotenv`.
+- Never hardcode the API key in source code; always read from process.env.
+
+Server behavior:
+- Default port: 5000 (configurable via `PORT` env var).
+- Add a simple `/api/health` endpoint returning `{ status: "ok" }` for quick checks.
+
+REST API endpoints to expose (all under `/api/apod`):
+
+1) `GET /api/apod/today`
+   - Returns today's APOD via NASA backend call or cache.
+   - Supports query `?hd=true|false` to request HD image when available.
+   - Response JSON should be a simplified, consistent shape:
+     {
+       date,
+       title,
+       explanation,
+       mediaType,
+       url,
+       hdUrl,
+       copyright
+     }
+     (Map NASA fields to these names.)
+
+2) `GET /api/apod/by-date?date=YYYY-MM-DD`
+   - Fetch APOD for a specific date (validated format).
+   - Return same simplified JSON shape as above.
+   - Return `400` if date is missing or invalid.
+
+3) `GET /api/apod/recent?days=N`
+   - Fetch APODs for the last N days (default 10, max 30).
+   - Use NASA APOD `start_date` and `end_date` query parameters.
+   - Return an array of simplified APOD objects.
+   - Ensure results are sorted with most recent first.
+
+Error handling:
+- If NASA API fails, return a meaningful error JSON with proper status code:
+  - 4xx for client input issues (e.g. invalid date).
+  - 5xx for unexpected server/NASA errors.
+- Do NOT expose internal stack traces in responses.
+
+Caching (MUST HAVE):
+- Implement a simple in-memory cache with:
+  - Max size (e.g. max number of cached entries, like 100).
+  - TTL (time-to-live) e.g. 10 minutes.
+- Cache key should be based on:
+  - Endpoint type (today / by-date / recent)
+  - Relevant parameters (date, range).
+- For each backend endpoint, check the cache first.
+- On cache miss, call NASA, store result in cache (with timestamp), then return.
+- On cache eviction:
+  - When cache exceeds max size, evict oldest entry (simple FIFO or LRU is acceptable).
+- IMPLEMENT caching in a clean, reusable module (e.g. `src/utils/cache.js` or similar).
+
+Project organization (example suggestion, you implement cleanly):
+- backend/src/
+  - server.js (or index.js)
+  - app.js (Express app wiring)
+  - routes/
+    - apodRoutes.js
+  - controllers/
+    - apodController.js
+  - services/
+    - apodService.js (NASA API + caching)
+  - utils/
+    - cache.js
+    - nasaClient.js
+  - config/
+    - env.js (optional centralized env loading)
+
+NPM scripts (backend):
+- `npm run dev` -> start dev server with hot reload (nodemon or similar).
+- `npm start` -> start production server.
+
+====================================
+FRONTEND REQUIREMENTS (React)
+====================================
+Tech:
+- Use React with JavaScript or TypeScript.
+- Use Vite (preferred) or Create React App.
+- Use functional components + hooks.
+- Styling:
+  - Use CSS Modules or a clean global CSS / SCSS file.
+  - Must be fully responsive: mobile-first design, works well from small screens to desktop.
+  - Visually appealing but not over-engineered.
+
+High-level behavior:
+- The frontend must only talk to the backend at `http://localhost:5000/api/...` or through a configurable base URL.
+- Create a small config file (e.g. `src/config/api.js`) with the backend base URL for easy change.
+
+UI Features (minimum):
+
+1) **Dashboard showing today's APOD**
+   - On initial load, fetch `/api/apod/today`.
+   - Show:
+     - Title
+     - Date
+     - Media (image or video)
+     - Short part of explanation (with “Read more” toggle).
+   - If media_type is "image", display image.
+   - If media_type is "video", embed appropriately (e.g., iframe).
+   - Show loading state and basic error state.
+
+2) **Date picker to view past APODs**
+   - A UI control (date input) where the user chooses a date.
+   - On selection, call `/api/apod/by-date?date=YYYY-MM-DD`.
+   - Render the selected APOD below / in a card.
+   - Include basic validation + friendly error message for invalid inputs or when NASA has no data.
+
+3) **Gallery of recent images**
+   - A “Recent Gallery” section that uses `/api/apod/recent?days=10` (or configurable).
+   - Display results in a responsive grid of cards.
+   - Each card shows:
+     - Thumbnail (image or video thumbnail fallback)
+     - Title
+     - Date
+   - Clicking a card opens a **detailed view** (modal or dedicated detail section).
+
+4) **Detailed view for each APOD**
+   - Detailed view must show:
+     - Large image / video
+     - Title
+     - Date
+     - Full explanation
+     - Copyright (if present, otherwise show “Public domain / not specified”).
+   - Provide a close button (for modal) or navigation back (for dedicated page).
+
+State & UX:
+- Use React hooks for state management (no Redux needed).
+- Have a top-level layout with:
+  - Header (project name: “NASA APOD Explorer”)
+  - Main content area (Dashboard, gallery, detail)
+  - Simple footer (e.g. “Powered by NASA APOD API”)
+- Add basic loading spinners/placeholders.
+- Handle error states gracefully (e.g. red text, small notice).
+
+Suggested structure (you can adjust as long as it’s clean):
+- frontend/src/
+  - main.jsx / index.jsx
+  - App.jsx
+  - config/
+    - api.js
+  - components/
+    - Layout/
+      - Header.jsx
+      - Footer.jsx
+    - Apod/
+      - TodayApod.jsx
+      - ApodGallery.jsx
+      - ApodDetailModal.jsx
+      - DatePickerApod.jsx
+  - styles/
+    - globals.css
+    - components-specific CSS modules if desired
+
+NPM scripts (frontend):
+- `npm run dev` -> start dev server.
+- `npm run build` -> build for production.
+- `npm run preview` -> serve built app locally (Vite).
+
+====================================
+README REQUIREMENTS
+====================================
+Create a high-quality `README.md` at the root with:
+
+- Project title & short description.
+- Tech stack summary.
+- Instructions:
+  - How to set up environment variables (NASA_API_KEY).
+  - How to install and run backend.
+  - How to install and run frontend.
+  - How to access the app in the browser.
+- Brief explanation of:
+  - API endpoints exposed by backend.
+  - Caching behavior (TTL + max size).
+- Notes on API key security (mention `.env` and `.gitignore`).
+
+====================================
+FINAL RESPONSE FORMAT (VERY IMPORTANT)
+====================================
+After you have created/updated ALL necessary files and code:
+
+1) Output a short bullet list of **all main files and directories you created or modified**, e.g.:
+   - backend/src/server.js
+   - backend/src/routes/apodRoutes.js
+   - frontend/src/App.jsx
+   - README.md
+   (Do NOT show full file contents here.)
+
+2) Then output the **exact commands** a user should run from a clean clone to:
+   - Install backend & frontend dependencies.
+   - Start backend server.
+   - Start frontend dev server.
+
+Remember:
+- Do NOT ask me to run commands in the middle.
+- Do NOT ask me to create files manually.
+- Do NOT output file contents in the final summary.
+- JUST follow this specification precisely.

@@ -1,0 +1,102 @@
+.date-picker-apod {
+  margin-bottom: 4rem;
+}
+
+.date-picker-apod h2 {
+  color: #fff;
+  margin-bottom: 2rem;
+  font-size: 2.25rem;
+  text-align: center;
+  font-weight: 700;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  letter-spacing: -0.01em;
+}
+
+.date-picker-controls {
+  display: flex;
+  gap: 1.25rem;
+  justify-content: center;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.date-input {
+  padding: 0.875rem 1.25rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  font-size: 1rem;
+  min-width: 220px;
+  background: rgba(255, 255, 255, 0.95);
+  color: #333;
+  font-family: inherit;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.date-input:focus {
+  outline: none;
+  border-color: #2a5298;
+  box-shadow: 0 4px 16px rgba(42, 82, 152, 0.4);
+  background: white;
+}
+
+.fetch-btn {
+  background: linear-gradient(135deg, #2a5298, #1e3c72);
+  color: white;
+  border: none;
+  padding: 0.875rem 2.5rem;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(42, 82, 152, 0.3);
+  letter-spacing: 0.025em;
+}
+
+.fetch-btn:hover {
+  background: linear-gradient(135deg, #1e3c72, #152a56);
+  box-shadow: 0 6px 16px rgba(42, 82, 152, 0.4);
+}
+
+.fetch-btn:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 1024px) {
+  .date-picker-apod h2 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .date-picker-apod h2 {
+    font-size: 1.85rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .date-picker-controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+  
+  .date-input {
+    min-width: 100%;
+  }
+  
+  .fetch-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .date-picker-apod h2 {
+    font-size: 1.6rem;
+  }
+  
+  .date-input,
+  .fetch-btn {
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+  }
+}

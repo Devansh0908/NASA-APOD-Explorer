@@ -21,13 +21,13 @@ This project demonstrates a complete full-stack architecture with a Node.js/Expr
 
 ## Features
 
-- 📸 **Today's APOD** - Automatic display of the current day's astronomy picture
-- 📅 **Date Picker** - Browse APODs from any past date
-- 🖼️ **Recent Gallery** - Grid view of the last 10 days with clickable cards
-- 🔍 **Detailed Modal** - Full-screen view with complete descriptions
-- 📱 **Fully Responsive** - Mobile-first design that works on all devices
-- ⚡ **Smart Caching** - In-memory cache with 10-minute TTL and 100-entry max
-- 🎥 **Media Support** - Handles both images and embedded videos
+- **Today's APOD** - Automatic display of the current day's astronomy picture
+- **Date Picker** - Browse APODs from any past date
+- **Recent Gallery** - Grid view of the last 10 days with clickable cards
+- **Detailed Modal** - Full-screen view with complete descriptions
+- **Fully Responsive** - Mobile-first design that works on all devices
+- **Smart Caching** - In-memory cache with 10-minute TTL and 100-entry max
+- **Media Support** - Handles both images and embedded videos
 
 ## Setup Instructions
 

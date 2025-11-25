@@ -2,14 +2,82 @@
   margin-bottom: 4rem;
 }
 
-.apod-gallery h2 {
-  color: #fff;
+.gallery-header {
   margin-bottom: 2.5rem;
+}
+
+.apod-gallery h2 {
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
   font-size: 2.25rem;
   text-align: center;
   font-weight: 700;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   letter-spacing: -0.01em;
+}
+
+.gallery-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.media-filter {
+  display: flex;
+  gap: 0.5rem;
+  background: var(--card-bg);
+  padding: 6px;
+  border-radius: 50px;
+  box-shadow: var(--shadow-sm);
+}
+
+.media-filter button {
+  padding: 10px 20px;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  border-radius: 50px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.media-filter button:hover {
+  background: var(--button-secondary);
+  transform: none;
+}
+
+.media-filter button.active {
+  background: var(--button-primary);
+  color: white;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.slideshow-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border: none;
+  background: var(--button-primary);
+  color: white;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  box-shadow: var(--shadow-md);
+  transition: all 0.3s ease;
+}
+
+.slideshow-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.slideshow-btn:not(:disabled):hover {
+  box-shadow: var(--shadow-lg);
 }
 
 .gallery-grid {
@@ -19,23 +87,30 @@
 }
 
 .gallery-card {
-  background: rgba(255, 255, 255, 0.98);
+  background: var(--card-bg);
   border-radius: 16px;
   overflow: hidden;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--card-border);
 }
 
 .gallery-card:hover {
   transform: translateY(-10px) scale(1.02);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+  box-shadow: var(--shadow-lg);
+}
+
+.gallery-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
 }
 
 .gallery-thumbnail {
   width: 100%;
-  height: 220px;
+  height: 100%;
   object-fit: cover;
   transition: transform 0.3s ease;
 }
@@ -44,16 +119,66 @@
   transform: scale(1.08);
 }
 
+.gallery-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.gallery-card:hover .gallery-overlay {
+  opacity: 1;
+}
+
+.gallery-overlay button {
+  width: 50px;
+  height: 50px;
+  border: none;
+  background: rgba(255, 255, 255, 0.95);
+  color: #1a1a2e;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.gallery-overlay button:hover {
+  background: white;
+  transform: scale(1.15);
+}
+
 .gallery-video-placeholder {
   width: 100%;
   height: 220px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 10px;
   color: white;
-  font-size: 2.5rem;
   transition: background 0.3s ease;
+}
+
+.gallery-video-placeholder svg {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.gallery-video-placeholder span {
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
 }
 
 .gallery-card:hover .gallery-video-placeholder {
@@ -65,7 +190,7 @@
 }
 
 .gallery-card-info h3 {
-  color: #1e3c72;
+  color: var(--text-primary);
   font-size: 1.2rem;
   margin-bottom: 0.75rem;
   font-weight: 600;
@@ -78,10 +203,52 @@
 }
 
 .gallery-date {
-  color: #777;
+  color: var(--text-muted);
   font-size: 0.9rem;
   font-weight: 500;
   letter-spacing: 0.025em;
+}
+
+.load-more-trigger {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 0;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid var(--card-border);
+  border-top-color: #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.loading-more {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.end-message {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--text-primary);
+  font-size: 1.3rem;
+  font-weight: 600;
+  background: var(--card-bg);
+  border-radius: 16px;
+  box-shadow: var(--shadow-md);
+  margin: 2rem auto;
+  max-width: 600px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @media (max-width: 1024px) {
@@ -94,7 +261,20 @@
 @media (max-width: 768px) {
   .apod-gallery h2 {
     font-size: 1.85rem;
-    margin-bottom: 2rem;
+  }
+
+  .gallery-controls {
+    gap: 1rem;
+  }
+
+  .media-filter button {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+  }
+
+  .slideshow-btn {
+    padding: 10px 20px;
+    font-size: 0.9rem;
   }
   
   .gallery-grid {
@@ -102,13 +282,27 @@
     gap: 1.5rem;
   }
   
-  .gallery-thumbnail,
+  .gallery-image-wrapper,
   .gallery-video-placeholder {
     height: 200px;
   }
 }
 
 @media (max-width: 640px) {
+  .gallery-controls {
+    flex-direction: column;
+  }
+
+  .media-filter {
+    width: 100%;
+    justify-content: space-around;
+  }
+
+  .slideshow-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
   .gallery-grid {
     grid-template-columns: 1fr;
     gap: 1.25rem;
@@ -121,14 +315,29 @@
   .gallery-card-info h3 {
     font-size: 1.1rem;
   }
+
+  .gallery-overlay button {
+    width: 45px;
+    height: 45px;
+  }
 }
 
 @media (max-width: 480px) {
   .apod-gallery h2 {
     font-size: 1.6rem;
   }
+
+  .media-filter button {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+  }
   
   .gallery-card-info {
     padding: 1rem;
+  }
+
+  .end-message {
+    font-size: 1.1rem;
+    padding: 2rem 1rem;
   }
 }

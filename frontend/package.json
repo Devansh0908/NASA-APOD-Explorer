@@ -1,6 +1,6 @@
 {
   "name": "nasa-apod-frontend",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "Frontend UI for NASA APOD Explorer",
   "type": "module",
   "scripts": {

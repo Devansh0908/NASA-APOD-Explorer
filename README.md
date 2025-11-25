@@ -1,6 +1,6 @@
 # NASA APOD Explorer
 
-![Version](https://img.shields.io/badge/version-3.0.0-blue)
+![Version](https://img.shields.io/badge/version-3.1.0-blue)
 ![Node](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen)
 ![React](https://img.shields.io/badge/react-19.0.0-61DAFB)
 ![Vite](https://img.shields.io/badge/vite-6.4.1-646CFF)
@@ -27,13 +27,21 @@ This project demonstrates a complete full-stack architecture with a Node.js/Expr
 
 ## Features
 
+### Core Features
 - **Today's APOD** - Automatic display of the current day's astronomy picture
 - **Date Picker** - Browse APODs from any past date
-- **Recent Gallery** - Grid view of the last 10 days with clickable cards
-- **Detailed Modal** - Full-screen view with complete descriptions
-- **Fully Responsive** - Mobile-first design that works on all devices
 - **Smart Caching** - In-memory cache with 10-minute TTL and 100-entry max
 - **Media Support** - Handles both images and embedded videos
+- **Fully Responsive** - Mobile-first design that works on all devices
+
+### UI/UX Enhancements (v3.1.0)
+- 🎨 **Dark/Light Theme Toggle** - Seamlessly switch between themes with persistent preferences
+- 🔍 **Image Zoom & Pan** - Advanced image viewer with zoom controls, mouse wheel support, and drag-to-pan
+- 🎬 **Slideshow Mode** - Auto-playing slideshow with customizable speed (2s/3s/5s) and keyboard navigation
+- ♾️ **Infinite Scroll** - Automatically loads more APODs as you scroll through the gallery
+- 🎯 **Media Type Filters** - Filter gallery by images only, videos only, or view all
+- 🖼️ **Enhanced Gallery** - Hover effects, overlay controls, and quick actions for each card
+- ⌨️ **Keyboard Shortcuts** - Navigate slideshow (←/→), zoom (±/0), play/pause (Space), close (Esc)
 
 ## Setup Instructions
 
@@ -274,6 +282,33 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 MIT License - see [LICENSE](LICENSE) file for details.
 
 ## Changelog
+
+### Version 3.1.0 (November 2025)
+**Major UI/UX Enhancement Update - New interactive features and dark mode:**
+
+#### New Features
+- **🎨 Dark/Light Theme Toggle** - Persistent theme switcher with smooth transitions and localStorage support
+- **🔍 Image Zoom & Pan** - Advanced image viewer with:
+  - Mouse wheel zoom (up to 5x magnification)
+  - Click and drag to pan when zoomed
+  - Keyboard shortcuts (+, -, 0 for zoom in/out/reset)
+  - Reset button and zoom level indicator
+- **🎬 Slideshow Mode** - Full-featured slideshow with:
+  - Customizable speed (2s, 3s, or 5s intervals)
+  - Auto-play with play/pause control
+  - Keyboard navigation (arrows, space, esc)
+  - Thumbnail navigation bar
+  - Start from any image in gallery
+- **♾️ Infinite Scroll** - Automatic loading of more APODs as you scroll
+- **🎯 Media Type Filters** - Quick filter buttons for All/Images/Videos with counts
+- **🖼️ Enhanced Gallery Cards** - Hover overlays with zoom and slideshow quick actions
+
+#### Technical Improvements
+- Implemented React Context API for theme management
+- Added CSS custom properties for theme variables
+- Intersection Observer API for efficient infinite scroll
+- Optimized re-renders with useCallback and proper dependencies
+- Responsive design improvements for all new features
 
 ### Version 3.0.0 (November 2025)
 **Major upgrade to React 19, Vite 6, and latest dependencies with zero vulnerabilities:**

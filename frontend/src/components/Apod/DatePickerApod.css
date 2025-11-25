@@ -3,7 +3,7 @@
 }
 
 .date-picker-apod h2 {
-  color: #fff;
+  color: var(--text-primary);
   margin-bottom: 2rem;
   font-size: 2.25rem;
   text-align: center;

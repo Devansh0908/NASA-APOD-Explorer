@@ -1,6 +1,6 @@
 {
   "name": "nasa-apod-backend",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "Backend API for NASA APOD Explorer",
   "main": "src/server.js",
   "scripts": {

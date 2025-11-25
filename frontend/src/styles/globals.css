@@ -1,3 +1,49 @@
+:root {
+  /* Light theme colors */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f5f7fa;
+  --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --text-primary: #1a1a2e;
+  --text-secondary: #4a5568;
+  --text-muted: #718096;
+  --card-bg: rgba(255, 255, 255, 0.95);
+  --card-border: rgba(0, 0, 0, 0.1);
+  --modal-bg: rgba(255, 255, 255, 0.98);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.2);
+  --overlay-bg: rgba(0, 0, 0, 0.75);
+  --input-bg: #ffffff;
+  --input-border: #cbd5e0;
+  --button-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --button-secondary: #e2e8f0;
+  --loading-bg: rgba(0, 0, 0, 0.05);
+  --error-bg: linear-gradient(135deg, #ff4444, #cc0000);
+}
+
+[data-theme="dark"] {
+  /* Dark theme colors */
+  --bg-primary: #0f0c29;
+  --bg-secondary: #1a1625;
+  --bg-gradient: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+  --text-primary: #ffffff;
+  --text-secondary: #e2e8f0;
+  --text-muted: #a0aec0;
+  --card-bg: rgba(30, 25, 50, 0.9);
+  --card-border: rgba(255, 255, 255, 0.1);
+  --modal-bg: rgba(20, 16, 40, 0.98);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.6);
+  --overlay-bg: rgba(0, 0, 0, 0.85);
+  --input-bg: #2d2640;
+  --input-border: #4a4560;
+  --button-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --button-secondary: #2d2640;
+  --loading-bg: rgba(255, 255, 255, 0.05);
+  --error-bg: linear-gradient(135deg, #ff4444, #cc0000);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -7,20 +53,21 @@
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
   line-height: 1.65;
-  color: #333;
-  background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+  color: var(--text-primary);
+  background: var(--bg-gradient);
   background-attachment: fixed;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 .loading {
   text-align: center;
   padding: 3rem 1rem;
   font-size: 1.1rem;
-  color: #fff;
-  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+  background: var(--loading-bg);
   border-radius: 12px;
   margin: 2rem auto;
   max-width: 400px;
@@ -40,13 +87,13 @@ body {
 }
 
 .error {
-  background: linear-gradient(135deg, #ff4444, #cc0000);
+  background: var(--error-bg);
   color: white;
   padding: 1.25rem 1.5rem;
   border-radius: 12px;
   margin: 1.5rem auto;
   text-align: center;
-  box-shadow: 0 4px 12px rgba(255, 68, 68, 0.3);
+  box-shadow: var(--shadow-md);
   max-width: 600px;
   font-weight: 500;
   border: 1px solid rgba(255, 255, 255, 0.1);

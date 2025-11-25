@@ -3,7 +3,7 @@
 }
 
 .today-apod h2 {
-  color: #fff;
+  color: var(--text-primary);
   margin-bottom: 2rem;
   font-size: 2.25rem;
   text-align: center;
@@ -37,7 +37,7 @@
 }
 
 .apod-date {
-  color: #666;
+  color: var(--text-muted);
   font-size: 0.95rem;
   margin-bottom: 2rem;
   font-weight: 500;
@@ -66,7 +66,7 @@
 }
 
 .apod-explanation {
-  color: #444;
+  color: var(--text-secondary);
   line-height: 1.85;
   margin-bottom: 1.5rem;
   font-size: 1.05rem;
@@ -93,7 +93,7 @@
 }
 
 .apod-copyright {
-  color: #777;
+  color: var(--text-muted);
   font-size: 0.9rem;
   font-style: italic;
   text-align: right;

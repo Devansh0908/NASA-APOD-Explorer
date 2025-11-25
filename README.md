@@ -2,6 +2,8 @@
 
 A full-stack web application that explores NASA's Astronomy Picture of the Day (APOD) API. View stunning space imagery, browse past APODs, and discover the wonders of our universe through NASA's curated collection.
 
+This project demonstrates a complete full-stack architecture with a Node.js/Express REST API backend and a modern React frontend, featuring intelligent caching, responsive design, and clean separation of concerns.
+
 ## Tech Stack
 
 ### Backend
@@ -32,6 +34,14 @@ A full-stack web application that explores NASA's Astronomy Picture of the Day (
 ### Prerequisites
 - Node.js (v16 or higher)
 - npm (v7 or higher)
+- NASA API Key (free from [api.nasa.gov](https://api.nasa.gov/))
+
+### Clone the Repository
+
+```bash
+git clone https://github.com/Devansh0908/NASA-APOD-Explorer.git
+cd NASA-APOD-Explorer
+```
 
 ### Environment Variables
 
@@ -40,12 +50,14 @@ A full-stack web application that explores NASA's Astronomy Picture of the Day (
    cd backend
    ```
 
-2. The `.env` file is already created with your NASA API key:
+2. Create a `.env` file in the `backend` folder with your NASA API key:
    ```
-   NASA_API_KEY=fe3Eo5zai2xMYw9yQsnEuUvPJTcuviQogZ4J5RQP
+   NASA_API_KEY=your_nasa_api_key_here
    PORT=5000
    ```
 
+   **Get Your API Key**: Visit [NASA API Portal](https://api.nasa.gov/) to obtain a free API key.
+   
    **Security Note**: The `.env` file is ignored by git (see `.gitignore`). Never commit API keys to version control.
 
 ### Backend Installation & Setup
@@ -158,6 +170,16 @@ The backend implements an intelligent in-memory caching system:
 
 This reduces NASA API calls, improves response times, and respects API rate limits.
 
+## Architecture
+
+This application follows REST API principles and runs completely locally:
+
+- **Backend**: RESTful API server that acts as a proxy to NASA's API
+- **Frontend**: Single-page application that communicates only with the local backend
+- **Separation of Concerns**: Clean architecture with routes, controllers, services, and utilities
+- **Security**: API keys never exposed to frontend; all external API calls handled server-side
+- **Performance**: Smart caching reduces latency and external API calls
+
 ## Project Structure
 
 ```
@@ -237,10 +259,23 @@ The build creates optimized static files in `frontend/dist/`.
 - Frontend never has direct access to the NASA API key
 - All NASA API calls are proxied through the backend
 
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
 ## License
 
-MIT
+MIT License - see [LICENSE](LICENSE) file for details.
 
 ## Credits
 
 Data provided by NASA's Astronomy Picture of the Day API.
+
+## Author
+
+**Devansh0908**
+- GitHub: [@Devansh0908](https://github.com/Devansh0908)
+
+---
+
+⭐ If you found this project helpful, please consider giving it a star!

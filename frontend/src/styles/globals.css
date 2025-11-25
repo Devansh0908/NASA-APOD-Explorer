@@ -24,6 +24,7 @@ body {
   border-radius: 12px;
   margin: 2rem auto;
   max-width: 400px;
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
 }
 
